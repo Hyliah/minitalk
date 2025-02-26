@@ -42,6 +42,3 @@ so:
 	gcc -nostartfiles -shared -o libft.so $(OBJS)
 
 .PHONY: clean fclean re all bonus
-
-
-// Makefile (create the "server" and "client" executables)

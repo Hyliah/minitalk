@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlichten <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: hlichten <hlichten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:30:40 by hlichten          #+#    #+#             */
-/*   Updated: 2025/02/13 00:50:10 by hlichten         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:02:10 by hlichten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitak.h"
+#include "minitalk.h"
 
 int	ft_atoi(const char *str)
 {
@@ -43,30 +43,30 @@ void	send_msg(int pid, char *str)
 	int	bit;
 
 	i = 0;
-		while (str[i])
-		{
-			bit = 0;
-			while (bit < 8)
-			{
-				if ((str[i] >> bit) & 1)
-					kill(pid, SIGUSR1);
-				else
-					kill(pid, SIGUSR2);
-				bit++;
-				usleep(50); 
-			}
-			i++;
-		}
+	while (str[i])
+	{
 		bit = 0;
 		while (bit < 8)
 		{
-			kill(pid, SIGUSR2);
+			if ((str[i] >> bit) & 1)
+				kill(pid, SIGUSR1); // kill envoie un signal a un processus donne (pid)
+			else
+				kill(pid, SIGUSR2);
 			bit++;
-			usleep(50);
+			usleep(500); // evite les envois trop rapides des signaux
 		}
+		i++;
+	}
+	bit = 0;
+	while (bit < 8) // envoi de 8 0 via SIGUSR2 pour marquer la fin de la communication
+	{
+		kill(pid, SIGUSR2);
+		bit++;
+		usleep(50);
+	}
 }
 
-int	main (int ac, char **av)
+int	main (int ac, char **av) // verifie les arguments et extrait le pid du serveur
 {
 	char	*str;
     int		pid;
@@ -76,7 +76,6 @@ int	main (int ac, char **av)
 		ft_printf("Erreur : merci de rentrer un nombre d arguments valide");
 		return (1);
 	}
-	
 	str = av[2];
 	pid = ft_atoi(av[1]);
 	if (pid <= 0)
@@ -85,10 +84,9 @@ int	main (int ac, char **av)
 		return (1);
 	}
 	
-	send_msg(pid, str);
+	send_msg(pid, str); // envoie un message au serveur avec send_msg
 	return (0);
 }
-
 
 // av1 = PID en char a mettre en int via atoi 
 // av2 = message en char 
