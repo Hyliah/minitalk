@@ -6,7 +6,7 @@
 /*   By: hlichten <hlichten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:30:52 by hlichten          #+#    #+#             */
-/*   Updated: 2025/02/26 18:19:41 by hlichten         ###   ########.fr       */
+/*   Updated: 2025/02/26 20:03:57 by hlichten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,49 +14,49 @@
 
 int sig_message = 0; // stock le caractere et l'index des bits
 
-void	reception_signal1(int signal) //reconstruit et affiche le message. 
+// void	reception_signal1(int signal) //reconstruit et affiche le message. 
+// {
+// 	char c;
+
+// 	if (signal == SIGUSR1)
+// 		sig_message |= (1<< ((sig_message >> 8) & 0xFF));
+
+// 	sig_message += (1 << 8);
+
+// 	if (((sig_message >> 8) & 0x0FF) == 8)
+// 	{
+// 		c = sig_message & 0xFF;
+// 		if (c == '\0')
+// 			ft_printf("\n");
+// 		else 
+// 			ft_printf("%c", c);
+// 		sig_message = 0;	
+// 	}
+// }
+
+void	reception_signal(int signal)
 {
-	char c;
+	unsigned char	bit;
+	int	count;
 
-	if (signal == SIGUSR1)
-		sig_message |= (1<< ((sig_message >> 8) & 0xFF));
+	bit = 0;
+	count = 0;
 
-	sig_message += (1 << 8);
-
-	if (((sig_message >> 8) & 0x0FF) == 8)
+	while(count > 8)
 	{
-		c = sig_message & 0xFF;
-		if (c == '\0')
-			ft_printf("\n");
-		else 
-			ft_printf("%c", c);
-		sig_message = 0;	
+		if (signal == SIGUSR1)
+		{
+			bit |= 0x01;
+			bit <<= 1;	
+			count++;
+		}
+		if (signal == SIGUSR2)
+		{
+			bit <<= 1;
+			count++;
+		}
 	}
-
-
-
-
-	int	bit;
-	int	count; // permet de suivre la reception du des bits
-
-
-
-	if (signal == SIGUSR1)
-	{
-		
-		count++;
-	}
-	if (signal == SIGUSR2)
-	{
-		
-		count++;
-	}
-	if (count > 7)
-	{
-		
-	}
-
-	// peut etre mettre le message dans un malloc avant de l'envoyer mais comment gerer la taille ?
+	return (bit);
 }
 
 int	main(int ac, char **av)
