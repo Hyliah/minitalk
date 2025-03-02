@@ -35,6 +35,8 @@ $(NAME_CLIENT): $(OBJS_CLIENT)
 $(NAME_SERVER): $(OBJS_SERVER)
 		$(CC) $(CFLAGS) $(OBJS_SERVER) $(PRINTF) -o $(NAME_SERVER)
 
+bonus: all
+
 clean:
 		$(RM) $(OBJS_CLIENT) $(OBJS_SERVER) 
 		$(MAKE) clean -C $(PRINTFDIR)
