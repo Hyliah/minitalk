@@ -6,7 +6,7 @@
 /*   By: hlichten <hlichten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:30:40 by hlichten          #+#    #+#             */
-/*   Updated: 2025/03/02 20:35:23 by hlichten         ###   ########.fr       */
+/*   Updated: 2025/03/04 15:49:44 by hlichten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	send_msg(int pid, char *str)
 			else
 				kill(pid, SIGUSR2);
 			bit--;
-			usleep(50);
+			usleep(100);
 		}
 		if (!str[i++])
 			break ;

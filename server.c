@@ -6,7 +6,7 @@
 /*   By: hlichten <hlichten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:30:52 by hlichten          #+#    #+#             */
-/*   Updated: 2025/03/02 20:35:23 by hlichten         ###   ########.fr       */
+/*   Updated: 2025/03/04 15:47:49 by hlichten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	reception_signal(int signal)
 {
 	static unsigned char	bit = '\0';
 	static int				count = 0;
-	static char				str[70000] = {0};
+	static char				str[700000] = {0};
 	static int				len = 0;
 
 	bit <<= 1;
