@@ -6,7 +6,7 @@
 /*   By: hlichten <hlichten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:30:40 by hlichten          #+#    #+#             */
-/*   Updated: 2025/03/04 15:49:44 by hlichten         ###   ########.fr       */
+/*   Updated: 2025/04/02 16:32:03 by hlichten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,14 @@ int	main(int ac, char **av)
 
 	if (ac != 3)
 	{
-		ft_printf("Erreur : merci de rentrer un nombre d arguments valide");
+		ft_printf("Error: invalid number of arguments\n");
 		return (1);
 	}
 	str = av[2];
 	pid = ft_atoi(av[1]);
 	if (pid <= 0)
 	{
-		ft_printf("Erreur : merci de rentrer un PID valide");
+		ft_printf("Error: Non valid PID\n");
 		return (1);
 	}
 	send_msg(pid, str);
